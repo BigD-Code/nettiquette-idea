@@ -1,31 +1,29 @@
-# Nettiquette — Idea
+# Retro 3D Lab
 
-Progetto "idea/bozza" parallelo a `nettiquette`: esperimento con React + Vite + Three.js per scena 3D con un computer (e probabili varianti visive).
+A small interactive WebGL showcase of retro CRT-style computers rendered in the browser with React + Vite + Three.js.
 
-## 🚀 Demo live (GitHub Pages)
+## 🚀 Live demo
 
-👉 https://bigd-code.github.io/nettiquette-idea/
+👉 https://bigd-code.github.io/retro-3d-lab/
 
-## 🧩 Stack tecnologico
+## 🧩 Stack
 
-- **Framework:** React 18 + Vite 5
-- **3D:** Three.js, @react-three/fiber, @react-three/drei, @react-three/postprocessing
-- **Helper 3D:** maath, @pmndrs/assets, suspend-react
+- **React 18** + **Vite 5**
+- **Three.js** + **@react-three/fiber** + **@react-three/drei**
+- **@react-three/postprocessing** (Bloom, ChromaticAberration, Noise, Vignette)
+- **maath** for camera easing helpers
 
-## 📁 Struttura del progetto
+## ✨ Features
 
-```
-nettiquette-idea/
-├── index.html
-├── package.json
-├── package-lock.json
-├── vite.config.js
-├── App.jsx
-├── main.jsx
-└── Computers.jsx         # Componente 3D principale
-```
+- 3 stylized retro computers (Amiga, C64, IBM PC) with emissive screens and keyboards
+- Reflective synthwave floor with magenta grid
+- Particle sparkles floating around the scene
+- Custom CRT overlay (scanlines + vignette + chromatic aberration)
+- Auto-rotating orbit camera with mouse drag/zoom
+- Animated "RETRO 3D LAB" neon sign
+- Custom boot loader
 
-## 💻 Sviluppo locale
+## 💻 Development
 
 ```bash
 npm install
@@ -36,8 +34,4 @@ npm run preview
 
 ## 🌐 Deploy
 
-Deploy automatico su GitHub Pages via GitHub Actions.
-
-## 📄 Licenza
-
-Progetto personale.
+Automatic deploy on push to `main` via GitHub Actions (`.github/workflows/deploy.yml`).

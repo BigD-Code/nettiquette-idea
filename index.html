@@ -3,13 +3,133 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Nettiquette Idea</title>
+    <meta name="description" content="Retro 3D Lab — interactive WebGL showcase of vintage CRT computers rendered with React Three Fiber." />
+    <title>Retro 3D Lab</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=VT323&family=Press+Start+2P&display=swap" rel="stylesheet" />
     <style>
-      html, body, #root { width: 100%; height: 100%; margin: 0; padding: 0; overflow: hidden; background: #000; }
+      :root {
+        --neon-cyan: #00f0ff;
+        --neon-magenta: #ff2bd6;
+        --neon-amber: #ffb347;
+        --bg-0: #050217;
+        --bg-1: #1a0830;
+      }
+      *, *::before, *::after { box-sizing: border-box; }
+      html, body, #root { width: 100%; height: 100%; margin: 0; padding: 0; overflow: hidden; }
+      body {
+        font-family: 'VT323', ui-monospace, monospace;
+        background:
+          radial-gradient(ellipse at 50% 30%, #2a0d4d 0%, #0a0420 45%, #02010a 100%);
+        color: #e6f9ff;
+      }
+      #root { position: relative; }
+      canvas { display: block; touch-action: none; }
+      .overlay {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 5;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 28px 36px;
+      }
+      .title {
+        font-family: 'Press Start 2P', 'VT323', monospace;
+        font-size: clamp(20px, 3vw, 34px);
+        letter-spacing: 0.12em;
+        margin: 0;
+        color: var(--neon-cyan);
+        text-shadow:
+          0 0 6px var(--neon-cyan),
+          0 0 18px rgba(0, 240, 255, 0.6),
+          3px 3px 0 var(--neon-magenta);
+      }
+      .subtitle {
+        margin: 8px 0 0 0;
+        font-size: clamp(14px, 1.6vw, 20px);
+        color: var(--neon-amber);
+        text-shadow: 0 0 8px rgba(255, 179, 71, 0.6);
+        letter-spacing: 0.05em;
+      }
+      .hint {
+        align-self: flex-end;
+        font-size: clamp(13px, 1.4vw, 18px);
+        color: rgba(230, 249, 255, 0.7);
+        text-align: right;
+      }
+      .hint b { color: var(--neon-magenta); text-shadow: 0 0 8px var(--neon-magenta); }
+      .scanlines {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 6;
+        background: repeating-linear-gradient(
+          to bottom,
+          rgba(0, 0, 0, 0) 0,
+          rgba(0, 0, 0, 0) 2px,
+          rgba(0, 0, 0, 0.18) 3px,
+          rgba(0, 0, 0, 0) 4px
+        );
+        mix-blend-mode: multiply;
+      }
+      .vignette {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 7;
+        background: radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.6) 100%);
+      }
+      .loader {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 18px;
+        background: #02010a;
+        z-index: 50;
+        color: var(--neon-cyan);
+        font-family: 'Press Start 2P', monospace;
+        text-align: center;
+        transition: opacity 0.6s ease;
+      }
+      .loader.hidden { opacity: 0; pointer-events: none; }
+      .loader-bar {
+        width: min(60vw, 360px);
+        height: 14px;
+        border: 2px solid var(--neon-cyan);
+        position: relative;
+        box-shadow: 0 0 12px var(--neon-cyan);
+      }
+      .loader-bar::after {
+        content: '';
+        position: absolute;
+        left: 0; top: 0; bottom: 0;
+        width: 30%;
+        background: linear-gradient(90deg, var(--neon-cyan), var(--neon-magenta));
+        animation: scan 1.2s linear infinite;
+      }
+      @keyframes scan {
+        0% { left: -30%; }
+        100% { left: 100%; }
+      }
     </style>
   </head>
   <body>
     <div id="root"></div>
+    <div class="overlay">
+      <header>
+        <h1 class="title">RETRO 3D LAB</h1>
+        <p class="subtitle">// vintage computing · re-imagined in WebGL</p>
+      </header>
+      <p class="hint">move your <b>mouse</b> · scroll to <b>zoom</b></p>
+    </div>
+    <div class="scanlines"></div>
+    <div class="vignette"></div>
     <script type="module" src="./main.jsx"></script>
   </body>
 </html>
